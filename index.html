@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Interactive Flower Bouquet</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(#fde2e4, #f8bbd0);
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+  }
+
+  .bouquet {
+    position: relative;
+    width: 320px;
+    height: 420px;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .flower {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    cursor: pointer;
+    animation: bloom 1.5s ease forwards;
+    transform: scale(0);
+  }
+
+  .f1 { top: 40px; left: 20px; }
+  .f2 { top: 10px; left: 115px; animation-delay: .3s; }
+  .f3 { top: 50px; left: 210px; animation-delay: .6s; }
+
+  @keyframes bloom {
+    to { transform: scale(1); }
+  }
+
+  .flower:hover {
+    animation: wiggle .4s infinite;
+  }
+
+  @keyframes wiggle {
+    0%,100% { transform: rotate(0deg); }
+    25% { transform: rotate(4deg); }
+    75% { transform: rotate(-4deg); }
+  }
+
+  .petal {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    background: #ff80ab;
+    border-radius: 50%;
+  }
+
+  .petal:nth-child(1) { top: 0; left: 29px; }
+  .petal:nth-child(2) { top: 29px; left: 0; }
+  .petal:nth-child(3) { top: 29px; right: 0; }
+  .petal:nth-child(4) { bottom: 0; left: 29px; }
+
+  .center {
+    position: absolute;
+    top: 29px;
+    left: 29px;
+    width: 32px;
+    height: 32px;
+    background: gold;
+    border-radius: 50%;
+  }
+
+  .stem {
+    position: absolute;
+    width: 6px;
+    height: 130px;
+    background: green;
+    top: 90px;
+    left: 42px;
+  }
+
+  .wrap {
+    position: absolute;
+    bottom: 0;
+    left: 60px;
+    width: 200px;
+    height: 160px;
+    background: #f48fb1;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  }
+
+  /* Hearts */
+  .heart {
+    position: absolute;
+    color: red;
+    font-size: 22px;
+    animation: pop 1s ease forwards;
+    pointer-events: none;
+  }
+
+  @keyframes pop {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(2) translateY(-40px); opacity: 0; }
+  }
+
+  .note {
+    position: absolute;
+    bottom: -50px;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    color: #880e4f;
+    animation: fadeIn 2s ease forwards;
+    animation-delay: 1.2s;
+    opacity: 0;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="bouquet">
+  <div class="flower f1" onclick="love(this)">
+    <div class="petal"></div><div class="petal"></div>
+    <div class="petal"></div><div class="petal"></div>
+    <div class="center"></div><div class="stem"></div>
+  </div>
+
+  <div class="flower f2" onclick="love(this)">
+    <div class="petal"></div><div class="petal"></div>
+    <div class="petal"></div><div class="petal"></div>
+    <div class="center"></div><div class="stem"></div>
+  </div>
+
+  <div class="flower f3" onclick="love(this)">
+    <div class="petal"></div><div class="petal"></div>
+    <div class="petal"></div><div class="petal"></div>
+    <div class="center"></div><div class="stem"></div>
+  </div>
+
+  <div class="wrap"></div>
+  <div class="note">For you ❤️</div>
+</div>
+
+<script>
+  function love(flower) {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+
+    const rect = flower.getBoundingClientRect();
+    heart.style.left = rect.left + rect.width / 2 + "px";
+    heart.style.top = rect.top + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 1000);
+  }
+</script>
+
+</body>
+</html>
